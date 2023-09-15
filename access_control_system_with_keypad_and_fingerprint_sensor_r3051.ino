@@ -20,23 +20,19 @@ char pass[sizeof(check)-1];
 byte pb[6]={A2,A1,A0,13,12,11};
 void start(){
   lcd.clear();
-        lcd.print("Wrong pass  ");
+        lcd.print("Wrong pass    ");
         delay(2000);
         i=0,counter=0;
         lcd.setCursor(0,0);
-        lcd.print("Enter Pass  ");
+        lcd.print("Enter Pass     ");
         lcd.setCursor(0,1);}
         
 void setup() {
-  pinMode(pb[0],INPUT_PULLUP);
-  pinMode(pb[1],INPUT_PULLUP);
-  pinMode(pb[2],INPUT_PULLUP);
-  pinMode(pb[3],INPUT_PULLUP);
-  pinMode(pb[4],INPUT_PULLUP);
-  pinMode(pb[5],INPUT_PULLUP);
+  for(byte j=0;j<6;j++){
+    pinMode(pb[j],INPUT_PULLUP);}
   lcd.init();
   lcd.backlight();
-  lcd.print("Enter pass");
+  lcd.print("Enter pass    ");
   lcd.setCursor(0,1);
 }
 
@@ -52,24 +48,26 @@ void loop() {
         if(pass[j]==check[j])counter++;
       }if(counter==num){
         lcd.clear();
-        lcd.print("Correct pass     ");
+        lcd.print("Correct pass       ");
         delay(2000);
         lcd.clear();
         i=0,counter=0;
         lcd.print("Enter your finger  ");
-        for(i=0;i<6;i++){
-          if(!digitalRead(pb[i])){
-            while(!digitalRead(pb[i]));
+        delay(2000);
+        for(byte z=0;z<6;z++){
+          if(!digitalRead(pb[z])){
+            while(!digitalRead(pb[z]));
             lcd.clear();
             lcd.print("The ID is:");
-            lcd.print(            i+1);
+            lcd.print(            z+1);
             delay(2000);
             lcd.clear();
           }
         }
         
         lcd.setCursor(0,0);
-        lcd.print("Enter Pass  ");
+        lcd.print("Enter Pass      ");
+        lcd.setCursor(0,1);
         
         
       
